@@ -30,5 +30,7 @@ THEME = 'pelican-bootstrap3'
 
 DISQUS_SITENAME = 'thetinrtf'
 
+OUTPUT_PATH = '../the-t-in-rtf.github.io/'
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
