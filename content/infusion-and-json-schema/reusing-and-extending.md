@@ -2,7 +2,6 @@ Title: Infusion and JSON Schemas, Part 2: Reuse
 Date: 2017-05-16 10:00
 Category: Code
 Tags: JSON Schema
-Status: Draft
 Slug: infusion-and-json-schema-reuse
 Author: Tony Atkins <tony@raisingthefloor.org>
 Summary: A detailed comparison of the inheritance and reuse issues involved in using JSON Schemas to validate Infusion component options.

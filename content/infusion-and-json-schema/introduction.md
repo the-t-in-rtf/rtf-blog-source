@@ -2,7 +2,6 @@ Title: Infusion and JSON Schema...
 Date: 2017-05-16 10:00
 Category: Code
 Tags: JSON Schema
-Status: Draft
 Slug: infusion-and-json-schema
 Author: Tony Atkins <tony@raisingthefloor.org>
 Summary: An overview of the combined use of Infusion and JSON Schema and the conversation to date.

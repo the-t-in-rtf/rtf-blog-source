@@ -1,8 +1,6 @@
 Title: Infusion and JSON Schemas, Part 3: End User Feedback
 Date: 2017-05-16 10:00
 Category: Code
-Tags: JSON Schema
-Status: Draft
 Slug: infusion-and-json-schema-feedback
 Author: Tony Atkins <tony@raisingthefloor.org>
 Summary: A detailed comparison of the issues involved in providing end-user feedback when validation options using a JSON Schema.
