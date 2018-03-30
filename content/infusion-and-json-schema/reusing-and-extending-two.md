@@ -80,18 +80,18 @@ The merged schema would effectively be:
 
 ```json
 {
-        "$schema": "http://json-schema.org/draft-07/schema",
-        "properties": {
-            "name": {
-                "type": "string",
-                "minLength": 4
-            },
-            "address": {
-                "type": "string"
-            }
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 4
         },
-        "required": ["name"]
-    }
+        "address": {
+            "type": "string"
+        }
+    },
+    "required": ["name"]
+}
 ```
 
 This basic example does not require the author to specify any hints about options merging in order to produce a valid
@@ -294,16 +294,21 @@ in additional options, both in the "restoring" grade, and in any derived grades.
 In the upcoming ["Potentia II"](https://issues.fluidproject.org/browse/FLUID-6148) work on Infusion, we will gain
 the ability to bind actions to early parts of the component lifecycle, and to  prevent component creation from
 proceeding further if there are problems.  As Antranig hinted at in a previous meeting, we might use this to bind one or
-more validation passes.  At a minimum, I would propose making two passes:
+more validation passes. I would propose that we do the following after options expansion and merging:
 
-1. Validating the merged, expanded schema definition itself.
-2. Validating the component options against the schema.
+1. Validate the merged, expanded schema definition itself against its meta schema (typically a particular version of the
+   JSON Schema draft standard).
+2. Validate the component options against the schema.
 
-The first step would immediately and dramatically make it clear to authors when they have merged material in a way that
-requires the addition of `mergePolicy` rules.
+The first step would immediately and dramatically make it clear to authors when they have merged schema definitions in a
+way that requires the addition of `mergePolicy` rules.
 
 # Conclusion #
 
+In summary, I am proposing that we:
+
+1. Use options merging and expansion in combination with `mergePolicy` rules to allow us to express schema definitions within component options.
+2. After options expansion and merging, validate the merged schema first, and if there are no errors, validate the component options using the merged schema.
+
 Although this draft outlines a handful of ways we might proceed, it's meant as a starting point for discussion.  I will
-write up the conclusions we reach and proceed to sketch out "schema validated components" based on what we agree.
- 
+write up the conclusions we reach and proceed to sketch out "schema validated components" based on what we agree. 

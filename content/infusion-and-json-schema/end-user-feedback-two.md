@@ -74,7 +74,7 @@ we're using a schema like the following:
 
 ```json
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Deep schema to test variable nesting and paths.",
     "type":  "object",
     "properties": {
@@ -165,7 +165,7 @@ rule is considered.  Let's say we have a schema like the following:
 
 ```json
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "id":      "password.json",
     "title":   "Password Validation Schema",
     "type":    "object",
@@ -302,7 +302,52 @@ fluid.defaults("my.validating.component", {
 As long as we can agree on this flattened structure, the authoring of error message hints becomes fairly
 straightforward.
 
+## "Dereferencing" Schemas ##
+
+All of my examples above have presented schemas that define all properties directly.  Many schema
+authors (including myself) follow the best practice of using "definitions" to allow easier reuse within the schema, and
+from other schemas, as in:
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "email": { "type": "string", "format": "email"}
+    },
+    "properties": {
+        "from": { "$ref": "#/definitions/email" },
+        "to":   { "$ref": "#/definitions/email" }
+    }
+}
+```
+
+In gpii-json-schema, we use [json-schema-deref](https://www.npmjs.com/package/json-schema-deref) to "dereference" this
+into something like:
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "email": { "type": "string", "format": "email"}
+    },
+    "properties": {
+        "from": { "type": "string", "format": "email" },
+        "to":   { "type": "string", "format": "email" }
+    }
+}
+```
+
+The `$ref` values used into the original are replaced with the full definition.  This allows us to more simply follow
+the strategy outlined above of representing a rule that has been broken in terms of a schema snippet.
+
 # Conclusion #
+
+In summary, I am proposing that we:
+
+1. Represent UI hints using a structure that relates "path to material" to the appropriate message key.
+2. Represent validation error messages using a structure that relates "path to material" and "failing rule" to the appropriate message key.
+3. Agree upon and transform the raw AJV output to our own validation error format.
+4. Dereference schemas before using them for validation purposes.
 
 My goal here is to provide a proposal as a starting point, and detailed enough examples to spur a good discussion.  I
 plan to write up the group consensus and use that as part of upcoming work in the gpii-json-schema package.
